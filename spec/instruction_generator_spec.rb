@@ -10,4 +10,9 @@ describe InstructionGenerator do
     instruction = InstructionGenerator.STA(value: 2172)
     expect(InstructionInterpretar.interpret(word: instruction)).to eq("STA: 2172")
   end
+
+  it "generates LDA" do
+    instruction = InstructionGenerator.STA(value: 2172)
+    expect(InstructionInterpretar.interpret(word: instruction)).to eq("LDA: 2172")
+  end
 end
