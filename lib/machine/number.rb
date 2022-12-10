@@ -1,15 +1,27 @@
 class Number
   attr_reader :decimal, :binary, :bytes
 
-  def initialize(number)
+  def initialize(number, bytes: 2)
     @bits_per_byte = 8
-    @bytes_per_number = 2
+    @bytes_per_number = bytes
 
     raise "Overflow" if number >= (2 ** (@bytes_per_number * @bits_per_byte))
 
     @decimal = number
     @binary = decimal_to_binary(number)
     @bytes = to_bytes
+  end
+
+  def self.bytes_to_decimal(bytes)
+    sum = 0
+
+    bytes.reverse.each_with_index do |byte, i|
+      byte.content.reverse.each_with_index do |num, j|
+        sum += num * (2 ** ((i * 8) + j))
+      end
+    end
+
+    sum
   end
 
   def to_s
