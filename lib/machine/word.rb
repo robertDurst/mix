@@ -1,10 +1,11 @@
 require './lib/machine/byte'
+require './lib/machine/pos_neg_sign'
 
 class Word
+  attr_accessor :sign, :byte_1, :byte_2, :byte_3, :byte_4, :byte_5
+
   def initialize(
-    # 0 = +
-    # 1 = -
-    sign: 0,
+    sign: PosNegSign.new,
 
     # address/value
     byte_1: Byte.new,
@@ -19,37 +20,18 @@ class Word
     # op code
     byte_5: Byte.new
   )
-    @content = [sign, byte_1, byte_2, byte_3, byte_4, byte_5]
-  end
-
-  def sign
-    @content[0]
-  end
-
-  def byte_1
-    @content[1]
-  end
-
-  def byte_2
-    @content[2]
-  end
-
-  def byte_3
-    @content[3]
-  end
-
-  def byte_4
-    @content[4]
-  end
-
-  def byte_5
-    @content[5]
+    @sign = sign
+    @byte_1 = byte_1
+    @byte_2 = byte_2
+    @byte_3 = byte_3
+    @byte_4 = byte_4
+    @byte_5 = byte_5
   end
 
   def to_s
     output_str = "|"
 
-    output_str << sign == 0 ? "+" : "-"
+    output_str << sign
     output_str << " #{byte_1.to_s}"
     output_str << " #{byte_2.to_s}"
     output_str << " #{byte_3.to_s}"
