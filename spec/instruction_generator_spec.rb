@@ -1,68 +1,76 @@
 require './lib/machine/word'
-require './lib/machine/mix'
-require './lib/machine/word'
-require './lib/machine/number'
-require './lib/machine/instruction_generator'
-require './lib/machine/instruction_interpretar'
+require './lib/machine/instruction/generator'
+require './lib/machine/instruction/pretty_formatter'
 
-describe InstructionGenerator do
+describe Machine::Instruction::Generator do
+  let(:address) { 2172 }
+
   it 'generates NOP' do
-    instruction = InstructionGenerator.NOP
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("NOP")
+    instruction = Machine::Instruction::Generator.NOP
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("NOP")
   end
 
   it 'generates LDA' do
-    instruction = InstructionGenerator.LDA(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("LDA: +2172")
+    instruction = Machine::Instruction::Generator.LDA(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("LDA: +#{address}")
   end
 
   it 'generates LDi' do
-    instruction = InstructionGenerator.LDi(address: 2172, index: 5)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("LDi (i = 5): +2172")
+    5.times.each do |i|
+      index = i + 1
+      instruction = Machine::Instruction::Generator.LDi(address: address, index: index)
+      expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("LDi (i = #{index}): +#{address}")
+    end
   end
 
   it 'generates LDX' do
-    instruction = InstructionGenerator.LDX(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("LDX: +2172")
+    instruction = Machine::Instruction::Generator.LDX(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("LDX: +#{address}")
   end
 
   it 'generates LDAN' do
-    instruction = InstructionGenerator.LDAN(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("LDAN: -2172")
+    instruction = Machine::Instruction::Generator.LDAN(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("LDAN: -#{address}")
   end
 
   it 'generates LDiN' do
-    instruction = InstructionGenerator.LDiN(address: 2172, index: 1)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("LDiN (i = 1): -2172")
+    5.times.each do |i|
+      index = i + 1
+      instruction = Machine::Instruction::Generator.LDiN(address: address, index: index)
+      expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("LDiN (i = #{index}): -#{address}")
+    end
   end
 
   it 'generates LDXN' do
-    instruction = InstructionGenerator.LDXN(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("LDXN: -2172")
+    instruction = Machine::Instruction::Generator.LDXN(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("LDXN: -#{address}")
   end
 
   it 'generates STA' do
-    instruction = InstructionGenerator.STA(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("STA: +2172")
+    instruction = Machine::Instruction::Generator.STA(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("STA: +#{address}")
   end
 
-  it "generates STi" do
-    instruction = InstructionGenerator.STi(address: 2172, index: 3)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("STi (i = 3): +2172")
+  it 'generates STi' do
+    5.times.each do |i|
+      index = i + 1
+      instruction = Machine::Instruction::Generator.STi(address: address, index: index)
+      expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("STi (i = #{index}): +#{address}")
+    end
   end
 
   it "generates STX" do
-    instruction = InstructionGenerator.STX(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("STX: +2172")
+    instruction = Machine::Instruction::Generator.STX(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("STX: +#{address}")
   end
 
   it "generates STJ" do
-    instruction = InstructionGenerator.STJ(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("STJ: +2172")
+    instruction = Machine::Instruction::Generator.STJ(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("STJ: +#{address}")
   end
 
   it "generates STZ" do
-    instruction = InstructionGenerator.STZ(address: 2172)
-    expect(InstructionInterpretar.interpret(word: instruction)).to eq("STZ: +2172")
+    instruction = Machine::Instruction::Generator.STZ(address: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("STZ: +#{address}")
   end
 end
