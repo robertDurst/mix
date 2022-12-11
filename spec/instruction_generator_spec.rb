@@ -73,4 +73,76 @@ describe Machine::Instruction::Generator do
     instruction = Machine::Instruction::Generator.STZ(address: address)
     expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("STZ: +#{address}")
   end
+
+  it "generates INCA" do
+    instruction = Machine::Instruction::Generator.INCA(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("INCA: +#{address}")
+  end
+
+  it "generates DECA" do
+    instruction = Machine::Instruction::Generator.DECA(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("DECA: +#{address}")
+  end
+
+  it "generates ENTA" do
+    instruction = Machine::Instruction::Generator.ENTA(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("ENTA: +#{address}")
+  end
+
+  it "generates ENNA" do
+    instruction = Machine::Instruction::Generator.ENNA(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("ENNA: -#{address}")
+  end
+
+  it 'generates INCi' do
+    5.times.each do |i|
+      index = i + 1
+      instruction = Machine::Instruction::Generator.INCi(value: address, index: index)
+      expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("INCi (i = #{index}): +#{address}")
+    end
+  end
+
+  it 'generates DECi' do
+    5.times.each do |i|
+      index = i + 1
+      instruction = Machine::Instruction::Generator.DECi(value: address, index: index)
+      expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("DECi (i = #{index}): +#{address}")
+    end
+  end
+
+  it 'generates ENTi' do
+    5.times.each do |i|
+      index = i + 1
+      instruction = Machine::Instruction::Generator.ENTi(value: address, index: index)
+      expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("ENTi (i = #{index}): +#{address}")
+    end
+  end
+
+  it 'generates ENNi' do
+    5.times.each do |i|
+      index = i + 1
+      instruction = Machine::Instruction::Generator.ENNi(value: address, index: index)
+      expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("ENNi (i = #{index}): -#{address}")
+    end
+  end
+
+  it "generates INCX" do
+    instruction = Machine::Instruction::Generator.INCX(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("INCX: +#{address}")
+  end
+
+  it "generates DECX" do
+    instruction = Machine::Instruction::Generator.DECX(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("DECX: +#{address}")
+  end
+
+  it "generates ENTX" do
+    instruction = Machine::Instruction::Generator.ENTX(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("ENTX: +#{address}")
+  end
+
+  it "generates ENNX" do
+    instruction = Machine::Instruction::Generator.ENNX(value: address)
+    expect(Machine::Instruction::PrettyFormatter.call(word: instruction)).to eq("ENNX: -#{address}")
+  end
 end

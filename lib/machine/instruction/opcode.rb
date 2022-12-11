@@ -61,18 +61,18 @@ module Machine
       # JXNN (jump X nonnegative) C = 47; F = 3
       # JXNZ (jump X nonzero) C = 47; F = 4
       # JXNP (jump X nonpositive) C = 47; F = 5
-      # DECA (decrease A) C = 48; F = 1
-      # INCA (increase A) C = 48; F = 0
-      # ENTA (enter A) C = 48; F = 2
-      # ENNA (enter negative A) C = 48; F = 3
-      # INCi (increase i) C = 48 + i; F = 0
-      # DECi (decrease i) C = 48 + i; F = 1
-      # ENTi (enter i) C = 48 + i; F = 2
-      # ENNi (enter negative i) C = 48 + i; F = 3
-      # INCX (increase X) C = 55; F = 0
-      # DECX (decrease X) C = 55; F = 1
-      # ENTX (enter X) C = 55; F = 2
-      # ENNX (enter negative X) C = 55; F = 3
+      INCA = 48
+      DECA = 48
+      ENTA = 48
+      ENNA = 48
+      INCI_BASE = 48
+      DECI_BASE = 48
+      ENTI_BASE = 48
+      ENNI_BASE = 48
+      INCX = 55
+      DECX = 55
+      ENTX = 55
+      ENNX = 55
       # CMPA (compare A) C = 56; F = field
       # CMPi (compare i) C = 56 + i; F = field
       # CMPX (compare X) C = 63; F = field
