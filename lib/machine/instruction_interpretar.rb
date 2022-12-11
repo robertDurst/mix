@@ -5,16 +5,28 @@ module InstructionInterpretar
     case word.byte_5.to_decimal
     when 0
       "NOP"
+    when 8
+      "LDA: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+    when 9, 10, 11, 12, 13, 14
+      "LDi (i = #{word.byte_5.to_decimal - 8}): #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+    when 15
+      "LDX: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+    when 16
+      "LDAN: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+    when 17, 18, 19, 20, 21, 22
+      "LDiN (i = #{word.byte_5.to_decimal - 16}): #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+    when 23
+      "LDXN: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
     when 24
-      "STA: #{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+      "STA: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
     when 25, 26, 27, 28, 29, 30
-      "STi (i = #{word.byte_5.to_decimal - 24}): #{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+      "STi (i = #{word.byte_5.to_decimal - 24}): #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
     when 31
-      "STX: #{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+      "STX: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
     when 32
-      "STJ: #{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+      "STJ: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
     when 33
-      "STZ: #{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
+      "STZ: #{word.sign.to_s}#{Number.bytes_to_decimal([word.byte_1, word.byte_2])}"
     else
       "UNDEFINED"
     end

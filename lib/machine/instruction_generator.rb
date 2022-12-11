@@ -4,88 +4,142 @@ require './lib/machine/number'
 module InstructionGenerator
   # NOP C = 0
   def self.NOP
-    word = Word.new
-    word.byte_5 = Number.new(0, bytes: 1).bytes[0]
+    base_word(op_code: 0)
   end
 
   # Add C = 1; F = field
+  def self.Add(address:)
+    base_word(op_code: 1, address_or_value: address)
+  end
+
   # SUB C = 2; F = field
+  def self.Add(address:)
+    base_word(op_code: 2, address_or_value: address)
+  end
+
   # MUL C = 3; F = field
+  def self.Add(address:)
+    base_word(op_code: 3, address_or_value: address)
+  end
+
   # DIV C = 4; F = field
+  def self.Add(address:)
+    base_word(op_code: 4, address_or_value: address)
+  end
+
   # NUM C = 5; F = 0
+  # TODO: handle F
+  def self.NUM(address:)
+    base_word(op_code: 5)
+  end
+
   # CHAR C = 5; F = 1
+  # TODO: handle F
+  def self.CHAR(address:)
+    base_word(op_code: 5)
+  end
+
   # HLT C = 5; F = 2
+  # TODO: handle F
+  def self.HLT(address:)
+    base_word(op_code: 5)
+  end
+
   # SLA (shift left A) C = 6; F = 0
+  # TODO: handle F
+  def self.SLA
+    base_word(op_code: 6)
+  end
+
   # SRA (shift right A) C = 6; F = 1
+  # TODO: handle F
+  def self.SRA
+    base_word(op_code: 6)
+  end
+
   # SLAX (shift left AX) C = 6; F = 2
+  # TODO: handle F
+  def self.SLAX
+    base_word(op_code: 6)
+  end
+
   # SRAX (shift right AX) C = 6; F = 3
+  # TODO: handle F
+  def self.SRAX
+    base_word(op_code: 6)
+  end
+
   # SLC (shift left AX circularly) C = 6; F = 4
-  # SRC (shirt right AX circularly) C = 6; F = 5
+  # TODO: handle F
+  def self.SLC
+    base_word(op_code: 6)
+  end
+
+  # SRC (shift right AX circularly) C = 6; F = 5
+  # TODO: handle F
+  def self.SRC
+    base_word(op_code: 6)
+  end
+
   # MOVE C = 7; F = number (normally 1)
+ # TODO: handle F
+  def self.SRC(address:)
+    base_word(op_code: 7, address_or_value: address)
+  end
+
   # LDA (load A) C = 8; F = field
+  def self.LDA(address:)
+    base_word(op_code: 8, address_or_value: address)
+  end
+
   # LDi (load i) C = 8 + i; F = field
+  def self.LDi(address:, index:)
+    base_word(op_code: 8 + index, address_or_value: address)
+  end
+
   # LDX (load X) C = 15; F = field
+  def self.LDX(address:)
+    base_word(op_code: 15, address_or_value: address)
+  end
+
   # LDAN (load A negative) C = 16; F = field
+  def self.LDAN(address:)
+    base_word(op_code: 16, address_or_value: address, negative: true)
+  end
+
   # LDiN (load i negative) C = 16 + i; F = field
+  def self.LDiN(address:, index:)
+    base_word(op_code: 16 + index, address_or_value: address, negative: true)
+  end
+
   # LDXN (load X negative) C = 23; F = field
+  def self.LDXN(address:)
+    base_word(op_code: 23, address_or_value: address, negative: true)
+  end
+
   # STA (store A) C = 24; F = field
-  def self.STA(value:)
-    word = Word.new
-    word.byte_5 = Number.new(24, bytes: 1).bytes[0]
-
-    value_bytes = Number.new(value, bytes: 2).bytes
-    word.byte_1 = value_bytes[0]
-    word.byte_2 = value_bytes[1]
-
-    word
+  def self.STA(address:)
+    base_word(op_code: 24, address_or_value: address)
   end
 
   # STi (store i) C = 24 + i; F = field
-  def self.STi(value:, index:)
-    word = Word.new
-    word.byte_5 = Number.new(24 + index, bytes: 1).bytes[0]
-
-    value_bytes = Number.new(value, bytes: 2).bytes
-    word.byte_1 = value_bytes[0]
-    word.byte_2 = value_bytes[1]
-
-    word
+  def self.STi(address:, index:)
+    base_word(op_code: 24 + index, address_or_value: address)
   end
 
   # STX (store X) C = 31; F = field
-  def self.STX(value:)
-    word = Word.new
-    word.byte_5 = Number.new(31, bytes: 1).bytes[0]
-
-    value_bytes = Number.new(value, bytes: 2).bytes
-    word.byte_1 = value_bytes[0]
-    word.byte_2 = value_bytes[1]
-
-    word
+  def self.STX(address:)
+    base_word(op_code: 31, address_or_value: address)
   end
 
   # STJ (store J) C = 32; F = field
-  def self.STJ(value:)
-    word = Word.new
-    word.byte_5 = Number.new(32, bytes: 1).bytes[0]
-
-    value_bytes = Number.new(value, bytes: 2).bytes
-    word.byte_1 = value_bytes[0]
-    word.byte_2 = value_bytes[1]
-
-    word
+  def self.STJ(address:)
+    base_word(op_code: 32, address_or_value: address)
   end
 
   # STZ (store zero) C = 33; F = field
   def self.STZ(address:)
-    word = Word.new
-    word.byte_5 = Number.new(33, bytes: 1).bytes[0]
-
-    address_bytes = Number.new(address, bytes: 2).bytes
-    word.byte_1 = address_bytes[0]
-    word.byte_2 = address_bytes[1]
-
-    word
+    base_word(op_code: 33, address_or_value: address)
   end
 
   # JBUS C = 34; F = unit
@@ -136,4 +190,19 @@ module InstructionGenerator
   # CMPA (compare A) C = 56; F = field
   # CMPi (compare i) C = 56 + i; F = field
   # CMPX (compare X) C = 63; F = field
+
+  def self.base_word(op_code:, address_or_value: nil, negative: false)
+    word = Word.new
+    word.byte_5 = Number.new(op_code, bytes: 1).bytes[0]
+
+    if address_or_value
+      address_or_value_bytes = Number.new(address_or_value, bytes: 2).bytes
+      word.byte_1 = address_or_value_bytes[0]
+      word.byte_2 = address_or_value_bytes[1]
+    end
+
+    word.sign.set_negative if negative
+
+    word
+  end
 end

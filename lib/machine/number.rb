@@ -50,6 +50,8 @@ class Number
   private
 
   def decimal_to_binary(number)
+    return (@bytes_per_number * @bits_per_byte).times.map { |_| 0 } if number == 0
+
     largest = round_down(Math.log2 number)
     nums = (@bytes_per_number * @bits_per_byte).times.map { |_| 0 }
 
