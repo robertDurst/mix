@@ -39,7 +39,7 @@ class Number
 
     i = 0
     while i < @bytes_per_number
-      bytes << Byte.new(content: @binary[i * @bits_per_byte, (i + 1) * @bits_per_byte])
+      bytes << Byte.new(content: @binary[i * @bits_per_byte .. ((i + 1) * @bits_per_byte) - 1])
 
       i += 1
     end
@@ -50,6 +50,8 @@ class Number
   private
 
   def decimal_to_binary(number)
+    return (@bytes_per_number * @bits_per_byte).times.map { |_| 0 } if number == 0
+
     largest = round_down(Math.log2 number)
     nums = (@bytes_per_number * @bits_per_byte).times.map { |_| 0 }
 
@@ -57,15 +59,16 @@ class Number
     while largest >= 0
       nums[largest] =  remainder / (2 ** largest)
       remainder = remainder % (2 ** largest)
+
       largest -= 1
     end
 
-    nums.reverse
+    nums[0..(@bytes_per_number * @bits_per_byte - 1)].reverse
   end
 
   def round_down(num)
     rounded = num.round
-    rounded < num ? rounded : rounded - 1
+    # rounded < num ? rounded : rounded - 1
   end
 
   def binary_to_decimal
